@@ -1,5 +1,16 @@
 # 踩坑表 + 官方小 Tips
 
+> v2.0.0 起，官方 h3-prompt-writing 的「Tips for Better Results」（2026-08-11 增补）也并在这里。
+> 那四条与正文有部分重叠，重叠处已去重：时长对齐 → 与「分镜与台词」一节同源；标签一致 → 见
+> ref-material-roles；具体细节 → 与「少写比喻」同源；关键帧衔接 → 见 skeletons 的首尾帧骨架。
+
+## 官方 Tips for Better Results（英文契约口径）
+
+- Always match the total duration of the description to the requested video length (4–15 seconds).
+- Keep reference labels consistent (`<Picture 1>` / `<Video 1>` / `<Audio 1>`) across every section.
+- Prefer concrete visual and audio details over abstract words like "cinematic" or "beautiful".
+- When using keyframes (I2VA / FL2VA / L2VA), clearly state how the first and/or last frame connects to the timeline.
+
 ## 官方踩坑表
 
 | 常见问题 | 怎么改 |
