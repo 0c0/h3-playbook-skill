@@ -1,7 +1,7 @@
 ---
 name: h3-playbook
 description: MiniMax H3 视频生成的单一入口 skill（官方《使用手册》口径 + 官方 h3-prompt-writing 写作契约合并版）—— 三段式提示词公式、五类生成模式（T2VA / I2VA / FL2VA / L2VA / Ref2VA）的模式判定与写法差异、Ref2VA 六段改写格式、参考素材用途标签、能力边界（时长 / 分辨率 / 宽高比 / 输入上限 / 语言）、踩坑表。Use when 写或改写 H3 提示词、判断某个需求 H3 能不能做、选宽高比或时长、指定参考素材用途、需要 T2VA/I2VA/FL2VA/L2VA 的字段级结构或 Ref2VA 六段格式、排查口型不同步或切镜错乱、选分辨率/步数/时长、事件被吃或动作计数不执行、判断某条路线还能不能试（实测定论）。
-skill_version: 2.1.2
+skill_version: 2.2.0
 ---
 
 # H3 Playbook
