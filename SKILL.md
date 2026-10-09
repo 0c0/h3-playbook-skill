@@ -161,4 +161,6 @@ subject_definitions → summary → retention_analysis → detailed_description
 - 中文口径：官方《MiniMax H3 模型 - 使用手册》（本 skill 最初版本的全部来源）。
 - 英文契约：官方 `h3-prompt-writing` skill，本地拷贝对应其 **2026-08-11 版**（SKILL.md 加 Tips 的
   那次更新，commit `a107547`）；`base-en.txt` / `ref-en.txt` 与官方逐字节一致（仅换行符差异）。
-- 官方再更新时：diff 官方仓库对应文件后同步进本 skill，并升 `skill_version`。
+- **每次更新本 skill 时，顺查官方仓库有无更新**：
+  `curl -s "https://api.github.com/repos/MiniMax-AI/MiniMax-H3/commits?path=skills/h3-prompt-writing&per_page=3"`
+  最新 sha ≠ `a107547` 即有更新。官方再更新时：diff 官方仓库对应文件后同步进本 skill，并升 `skill_version`。
