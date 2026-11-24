@@ -1,7 +1,8 @@
 # 官方垂类配方（`skills/` 下 8 个 style skill 的 H3 层提炼）
 
-**来源**：`MiniMax-AI/MiniMax-H3` 仓库 `skills/` 目录，2026-08-05 起陆续加入的 8 个垂类 skill
-（每类含 `SKILL.md` + `SKILL.cn.md`，部分带 `references/` 模板）。
+**来源**：`MiniMax-AI/MiniMax-H3` 仓库 `skills/` 目录，2026-08-05 起陆续加入的 8 个垂类 skill，
+口径 pin 到 commit `a107547`（每类含 `SKILL.md` + `SKILL.cn.md`，部分带 `references/` 模板）。
+原文不落盘，要整份时按 **§十** 的地址现场取。
 
 **只收什么**：这 8 个包是**端到端流水线**（brief → 素材生成 → 分镜 → 单镜 → 合成 → BGM → 审核门）。
 本文件只抽「决定 H3 提示词怎么写」的部分；平台流程、画布交付、审批卡片、多轮改写不在内。
@@ -160,18 +161,64 @@ no misspelled text, no extra menu items, no watermark.
 | 双人游戏开场 | 10–15s | 确认图 → 视频（同一事件框架） | UI 逐字文本、双人身份锚、体型差 | 第三人、身份互换、分屏 |
 | 手绘发光 × 实拍 | 15s · 16:9 | 11 段范式（见 §七 A） | 0–3s 接触、连续变形、相机延迟 | 3DCG、毛绒感、恐怖元素、矢量平滑线 |
 
-## 官方入口
+## 十、官方原文地址（按需取，不预置）
 
-| 垂类 | 目录（`skills/` 下） |
-|---|---|
-| 极简产品广告 | `minimalist-product-ad-generator` |
-| 3D 动画短片 | `3d-animation-short-generator` |
-| 纸艺定格讲解 | `papercraft-stop-motion-explainer` |
-| 拼贴讲解 | `paper-collage-explainer-generator` |
-| 品牌宣传 | `brand-promo-video-generator` |
-| MV / 歌词排版 | `music-video-subtitle-generator` |
-| 双人游戏开场 | `co-op-game-intro-generator` |
-| 手绘发光 × 实拍 | `handdrawn-live-video-generator` |
+本文件只留提炼层，原文不落盘。**只有三种情形才值得去拉**：
 
-两层模板最值得直接照抄：`co-op-game-intro-generator/references/h3-video-prompt-template.md`（UI 类六小节）、
+1. 要照抄官方模板的逐条措辞（§七 两个范式只给了段序，模板里有完整示例句）；
+2. 要做完整流水线（brief → 素材 → 分镜 → 单镜 → 合成 → BGM → 审核门）——本文件明确不收这部分；
+3. 本文件某条判据与手上需求冲突，要看官方原始上下文裁决。
+
+地址统一 pin 到 commit **`a107547`**（= `skills/` 路径当前最新，2026-08-11）。官方更新后用文末命令检测，
+检测到再换 sha，不要图省事把地址改成 `main`（内容会漂，提炼层与原文对不上就无法判定谁过期）。
+
+| 垂类 | 目录（`skills/` 下） | 文件构成 |
+|---|---|---|
+| 极简产品广告 | `minimalist-product-ad-generator` | `SKILL.md` 32K / `SKILL.cn.md` 27K |
+| 3D 动画短片 | `3d-animation-short-generator` | `SKILL.md` 15K / `SKILL.cn.md` 40K；`references/` 5 篇：`shot-table-spec.md`、`storyboard-guidelines.md`、`qc-checklist.md`、`model-selection.md`、`fallback-policy.md` |
+| 纸艺定格讲解 | `papercraft-stop-motion-explainer` | `SKILL.md` 23K / `SKILL.cn.md` 20K |
+| 拼贴讲解 | `paper-collage-explainer-generator` | `SKILL.md` 21K / `SKILL.cn.md` 17K |
+| 品牌宣传 | `brand-promo-video-generator` | `SKILL.md` 14K / `SKILL.cn.md` 11K |
+| MV / 歌词排版 | `music-video-subtitle-generator` | `SKILL.md` 14K / `SKILL.cn.md` 15K |
+| 双人游戏开场 | `co-op-game-intro-generator` | `SKILL.md` 8K / `SKILL.cn.md` 8K；`references/h3-video-prompt-template.md` 10K、`references/h3-confirmation-image-template.md` 14K |
+| 手绘发光 × 实拍 | `handdrawn-live-video-generator` | `SKILL.md` 8K / `SKILL.cn.md` 7K |
+
+读哪个：**中文流程读 `SKILL.cn.md`，英文模板与字段原文读 `SKILL.md`**；`meta.yaml` 只是 skill 元数据，
+不含提示词内容，不拉。上面标了 `references/` 的只有两类，其中两个模板最值得照抄——
+`co-op-game-intro-generator/references/h3-video-prompt-template.md`（UI 类六小节完整措辞）、
 `3d-animation-short-generator/references/shot-table-spec.md`（六列分镜表规范）。
+
+**取法（首选 raw）**：
+
+```bash
+BASE="https://raw.githubusercontent.com/MiniMax-AI/MiniMax-H3/a107547/skills"
+curl -s --noproxy '*' "$BASE/minimalist-product-ad-generator/SKILL.cn.md" -o /tmp/pad.cn.md
+```
+
+`--noproxy '*'` 是本机约定（有系统代理时会把请求送到代理上）。要落进本 skill 时放 `references/` 并标
+「逐字拷贝自官方 a107547」，与 `base-en.txt` 同口径。
+
+**兜底（raw 不通时走 api）**：
+
+```bash
+curl -s --noproxy '*' "https://api.github.com/repos/MiniMax-AI/MiniMax-H3/contents/skills/co-op-game-intro-generator/SKILL.cn.md?ref=a107547" \
+  | python -c "import sys,json,base64;print(base64.b64decode(json.load(sys.stdin)['content']).decode())"
+```
+
+**一次拉全 8 类中文版**：
+
+```bash
+BASE="https://raw.githubusercontent.com/MiniMax-AI/MiniMax-H3/a107547/skills"
+for d in minimalist-product-ad-generator 3d-animation-short-generator papercraft-stop-motion-explainer \
+         paper-collage-explainer-generator brand-promo-video-generator music-video-subtitle-generator \
+         co-op-game-intro-generator handdrawn-live-video-generator; do
+  curl -s --noproxy '*' "$BASE/$d/SKILL.cn.md" -o "/tmp/$d.cn.md"
+done; ls -l /tmp/*.cn.md
+```
+
+**更新检测**（`a107547` 之后有提交 = 原文变了）：
+
+```bash
+curl -s --noproxy '*' "https://api.github.com/repos/MiniMax-AI/MiniMax-H3/commits?path=skills&per_page=3" \
+  | python -c "import sys,json;[print(c['sha'][:7], c['commit']['committer']['date'][:10], c['commit']['message'].splitlines()[0]) for c in json.load(sys.stdin)]"
+```

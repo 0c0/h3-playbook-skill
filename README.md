@@ -8,7 +8,7 @@ MiniMax H3 视频生成的**单一入口 skill**：官方《使用手册》口�
 |---|---|
 | MiniMax 官方《MiniMax H3 模型 - 使用手册》 | 能力边界、三段式公式、素材标签、踩坑表 |
 | 官方 skill `h3-prompt-writing`（`MiniMax-AI/MiniMax-H3`，2026-08-11 版 / commit `a107547`） | T2VA / I2VA / FL2VA / L2VA 字段级最终结构、Ref2VA 六段改写格式（原文逐字节拷贝于 `references/base-en.txt` / `ref-en.txt`） |
-| 官方 `skills/` 下 8 个垂类 style skill（2026-08-05 起加入） | 结构/风格分层、参考图窄职责、分镜表列规范、>15s 拼接锁、画面文字与音频策略（提炼于 `references/style-recipes.md`，未逐字搬运） |
+| 官方 `skills/` 下 8 个垂类 style skill（2026-08-05 起加入） | 结构/风格分层、参考图窄职责、分镜表列规范、>15s 拼接锁、画面文字与音频策略（提炼于 `references/style-recipes.md`，未逐字搬运；原文不预置，按该文件 §十 的 pin-commit 地址现场取） |
 | 实测定论（2026-09-28~30，E1~E25 系列） | 分辨率安全点、steps/duration 正交、脸框-细节阶梯、事件丢失规律、链式首尾帧、景别不对称律等（汇总于 `references/field-tested.md`） |
 
 **功能边界**：只讲 H3 本身——提示词结构、生成模式、素材用途、能力边界、踩坑。
@@ -62,4 +62,4 @@ curl -s "https://api.github.com/repos/MiniMax-AI/MiniMax-H3/commits?path=skills&
 
 ## 版本
 
-`skill_version: 2.7.0`
+`skill_version: 2.7.1`

@@ -1,7 +1,7 @@
 ---
 name: h3-playbook
 description: MiniMax H3 视频生成的单一入口 skill（官方《使用手册》口径 + 官方 h3-prompt-writing 写作契约合并版）—— 三段式提示词公式、五类生成模式（T2VA / I2VA / FL2VA / L2VA / Ref2VA）的模式判定与写法差异、Ref2VA 六段改写格式、参考素材用途标签、能力边界（时长 / 分辨率 / 宽高比 / 输入上限 / 语言）、踩坑表、垂类配方（产品广告 / 3D 动画 / 纸艺或拼贴讲解 / 品牌宣传 / MV 排版 / 游戏开场 / 手绘实拍）、片长 >15s 的拆镜拼接。Use when 写或改写 H3 提示词、判断某个需求 H3 能不能做、选宽高比或时长、指定参考素材用途、需要 T2VA/I2VA/FL2VA/L2VA 的字段级结构或 Ref2VA 六段格式、排查口型不同步或切镜错乱、选分辨率/步数/时长、事件被吃或动作计数不执行、判断某条路线还能不能试（实测定论）。
-skill_version: 2.7.0
+skill_version: 2.7.1
 ---
 
 # H3 Playbook
@@ -169,7 +169,8 @@ subject_definitions → summary → retention_analysis → detailed_description
 - 英文契约：官方 `h3-prompt-writing` skill，本地拷贝对应其 **2026-08-11 版**（SKILL.md 加 Tips 的
   那次更新，commit `a107547`）；`base-en.txt` / `ref-en.txt` 与官方逐字节一致（仅换行符差异）。
 - 垂类配方：官方 `skills/` 下 8 个 style skill（2026-08-05 起加入，各含 `SKILL.md` + `SKILL.cn.md`），
-  提炼为 `references/style-recipes.md`，未逐字搬运原文。
+  提炼为 `references/style-recipes.md`，未逐字搬运原文；**原文不预置**，要整份模板时按该文件 **§十**
+  的地址（pin commit `a107547`）现场取，含 raw / api 两种取法。
 - **每次更新本 skill 时，顺查官方仓库有无更新**：
   `curl -s "https://api.github.com/repos/MiniMax-AI/MiniMax-H3/commits?path=skills&per_page=3"`
   最新 sha ≠ `a107547` 即有更新（`skills` 与 `skills/h3-prompt-writing` 两条路径都要看）。
