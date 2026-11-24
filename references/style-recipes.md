@@ -161,18 +161,36 @@ no misspelled text, no extra menu items, no watermark.
 | 双人游戏开场 | 10–15s | 确认图 → 视频（同一事件框架） | UI 逐字文本、双人身份锚、体型差 | 第三人、身份互换、分屏 |
 | 手绘发光 × 实拍 | 15s · 16:9 | 11 段范式（见 §七 A） | 0–3s 接触、连续变形、相机延迟 | 3DCG、毛绒感、恐怖元素、矢量平滑线 |
 
-## 十、官方原文地址（按需取，不预置）
+## 十、遇到垂类整包需求：建议用户安装官方 skill
 
-本文件只留提炼层，原文不落盘。**只有三种情形才值得去拉**：
+本文件只覆盖提示词层。官方那 8 个垂类是**可直接安装的 skill 包**（`SKILL.md` + `SKILL.cn.md` +
+`meta.yaml`，两类带 `references/` 模板），装上以后自带该垂类的模板库、默认值、禁区与自检清单。
+**命中下面任一条就别硬用本文件拼，直接建议用户装对应那个包**：
 
-1. 要照抄官方模板的逐条措辞（§七 两个范式只给了段序，模板里有完整示例句）；
-2. 要做完整流水线（brief → 素材 → 分镜 → 单镜 → 合成 → BGM → 审核门）——本文件明确不收这部分；
-3. 本文件某条判据与手上需求冲突，要看官方原始上下文裁决。
+| 判据（命中即推荐） | 本 skill 为什么顶不上 |
+|---|---|
+| 用户要的是**整条片子落地**，不只是提示词（素材准备 → 分镜表 → 逐镜生成 → 拼接 → 配乐 → 审核） | 流程编排、交付物形态、审核门不在本 skill 范围 |
+| 用户要照抄官方模板全文（六小节分镜表、确认图模板、QC 清单、模型选型与 fallback 策略） | 本文件只提炼了段序与判据，模板逐条措辞在包里 |
+| 用户在同一垂类反复返工（产品广告 / 3D 动画 / 纸艺 / 拼贴 / 品牌 / MV / 游戏开场 / 手绘实拍） | 那个包有该垂类的成套默认值与自检清单 |
+
+**推荐时必须说清它能干什么、不能干什么**——官方 frontmatter 自己写着
+`compatibility: Requires the MiniMax Hub agent ... not portable to generic agent harnesses`：
+
+- **能直接用**：模板、分镜表规范、QC 清单、模型选型与降级策略、提示词范式（纯文档层）。
+- **不能直接用**：画布工作区、Hub 的生成 / 路由工具、审核卡片那套流程编排（换到本机就跑不通）。
+  所以定位是「装成一个垂类模板库」，不是「装了就能一键出片」。
+
+一句话话术，不要推销整段：
+
+> 这块官方有现成的 `xxx` skill，带完整分镜模板和自检清单，装上当模板库比我在提示词层拼省事——要装吗？
+
+用户不表态就不装；已经装过（skill 列表里能看到）就不再提。装不装都不改变本 skill 的定位：
+写 prompt 仍按本文件走，垂类包只提供模板与清单。
 
 地址统一 pin 到 commit **`a107547`**（= `skills/` 路径当前最新，2026-08-11）。官方更新后用文末命令检测，
-检测到再换 sha，不要图省事把地址改成 `main`（内容会漂，提炼层与原文对不上就无法判定谁过期）。
+换 sha 再重装；别图省事改成 `main`（内容会漂，模板与判据对不上时无法判断谁过期）。
 
-| 垂类 | 目录（`skills/` 下） | 文件构成 |
+| 垂类 | 安装目录名（`skills/` 下同名，也是本地目录名） | 包里有什么 |
 |---|---|---|
 | 极简产品广告 | `minimalist-product-ad-generator` | `SKILL.md` 32K / `SKILL.cn.md` 27K |
 | 3D 动画短片 | `3d-animation-short-generator` | `SKILL.md` 15K / `SKILL.cn.md` 40K；`references/` 5 篇：`shot-table-spec.md`、`storyboard-guidelines.md`、`qc-checklist.md`、`model-selection.md`、`fallback-policy.md` |
@@ -183,38 +201,42 @@ no misspelled text, no extra menu items, no watermark.
 | 双人游戏开场 | `co-op-game-intro-generator` | `SKILL.md` 8K / `SKILL.cn.md` 8K；`references/h3-video-prompt-template.md` 10K、`references/h3-confirmation-image-template.md` 14K |
 | 手绘发光 × 实拍 | `handdrawn-live-video-generator` | `SKILL.md` 8K / `SKILL.cn.md` 7K |
 
-读哪个：**中文流程读 `SKILL.cn.md`，英文模板与字段原文读 `SKILL.md`**；`meta.yaml` 只是 skill 元数据，
-不含提示词内容，不拉。上面标了 `references/` 的只有两类，其中两个模板最值得照抄——
-`co-op-game-intro-generator/references/h3-video-prompt-template.md`（UI 类六小节完整措辞）、
-`3d-animation-short-generator/references/shot-table-spec.md`（六列分镜表规范）。
-
-**取法（首选 raw）**：
+**安装（装成独立本地 skill，放 `~/.workbuddy/skills/<目录名>`）**：
 
 ```bash
 BASE="https://raw.githubusercontent.com/MiniMax-AI/MiniMax-H3/a107547/skills"
-curl -s --noproxy '*' "$BASE/minimalist-product-ad-generator/SKILL.cn.md" -o /tmp/pad.cn.md
+NAME=minimalist-product-ad-generator          # 换成要装的那个目录名
+D="$HOME/.workbuddy/skills/$NAME"
+mkdir -p "$D" && for f in SKILL.md SKILL.cn.md meta.yaml; do
+  curl -sf --noproxy '*' --retry 3 "$BASE/$NAME/$f" -o "$D/$f" || echo "拉取失败：$f"
+done; ls -l "$D"        # 应有 3 个文件
 ```
 
-`--noproxy '*'` 是本机约定（有系统代理时会把请求送到代理上）。要落进本 skill 时放 `references/` 并标
-「逐字拷贝自官方 a107547」，与 `base-en.txt` 同口径。
-
-**兜底（raw 不通时走 api）**：
-
-```bash
-curl -s --noproxy '*' "https://api.github.com/repos/MiniMax-AI/MiniMax-H3/contents/skills/co-op-game-intro-generator/SKILL.cn.md?ref=a107547" \
-  | python -c "import sys,json,base64;print(base64.b64decode(json.load(sys.stdin)['content']).decode())"
-```
-
-**一次拉全 8 类中文版**：
+只有两类带 `references/`，其余六类拉完上面三件就齐：
 
 ```bash
 BASE="https://raw.githubusercontent.com/MiniMax-AI/MiniMax-H3/a107547/skills"
-for d in minimalist-product-ad-generator 3d-animation-short-generator papercraft-stop-motion-explainer \
-         paper-collage-explainer-generator brand-promo-video-generator music-video-subtitle-generator \
-         co-op-game-intro-generator handdrawn-live-video-generator; do
-  curl -s --noproxy '*' "$BASE/$d/SKILL.cn.md" -o "/tmp/$d.cn.md"
-done; ls -l /tmp/*.cn.md
+# 3D 动画短片：5 篇
+D="$HOME/.workbuddy/skills/3d-animation-short-generator"; mkdir -p "$D/references"
+for f in shot-table-spec storyboard-guidelines qc-checklist model-selection fallback-policy; do
+  curl -sf --noproxy '*' --retry 3 "$BASE/3d-animation-short-generator/references/$f.md" -o "$D/references/$f.md"; done
+# 双人游戏开场：2 篇
+D="$HOME/.workbuddy/skills/co-op-game-intro-generator"; mkdir -p "$D/references"
+for f in h3-video-prompt-template h3-confirmation-image-template; do
+  curl -sf --noproxy '*' --retry 3 "$BASE/co-op-game-intro-generator/references/$f.md" -o "$D/references/$f.md"; done
 ```
+
+- `meta.yaml` 带 trigger-words，**要一起拉**，缺了触发词识别不到。
+- 偶发断连（本机实测第一次拉会静默漏一个文件）：`curl -f` 会打 `拉取失败：xxx`，补跑那一条；
+  最后按文件数自检——三件套 = 3、3D 动画 = 8（3+5）、双人游戏开场 = 5（3+2）。
+- 装完让用户重启会话（或重新加载 skill）才在列表里出现；列表里已经有了就不要重复装。
+- `--noproxy '*'` 是本机约定（有系统代理时请求会被转给代理）；raw 不通时用 api 兜底
+  （`GET /repos/MiniMax-AI/MiniMax-H3/contents/skills/<目录>/<文件>?ref=a107547` 取 base64 解码落盘）。
+- **别把这 8 个包塞进 h3-playbook 的 `references/`**：它们是独立 skill，塞进来会与本文件的判据重复且互相打架。
+- 装完最值得先翻的两处模板：`co-op-game-intro-generator/references/h3-video-prompt-template.md`（UI 类六小节完整措辞）、
+  `3d-animation-short-generator/references/shot-table-spec.md`（六列分镜表规范）。
+
+想一次装全就把上面第一段的 `NAME=` 换成遍历上表 8 个目录名（拉三件套的那层循环即可）。
 
 **更新检测**（`a107547` 之后有提交 = 原文变了）：
 

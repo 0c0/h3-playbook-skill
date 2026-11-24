@@ -1,7 +1,7 @@
 ---
 name: h3-playbook
 description: MiniMax H3 视频生成的单一入口 skill（官方《使用手册》口径 + 官方 h3-prompt-writing 写作契约合并版）—— 三段式提示词公式、五类生成模式（T2VA / I2VA / FL2VA / L2VA / Ref2VA）的模式判定与写法差异、Ref2VA 六段改写格式、参考素材用途标签、能力边界（时长 / 分辨率 / 宽高比 / 输入上限 / 语言）、踩坑表、垂类配方（产品广告 / 3D 动画 / 纸艺或拼贴讲解 / 品牌宣传 / MV 排版 / 游戏开场 / 手绘实拍）、片长 >15s 的拆镜拼接。Use when 写或改写 H3 提示词、判断某个需求 H3 能不能做、选宽高比或时长、指定参考素材用途、需要 T2VA/I2VA/FL2VA/L2VA 的字段级结构或 Ref2VA 六段格式、排查口型不同步或切镜错乱、选分辨率/步数/时长、事件被吃或动作计数不执行、判断某条路线还能不能试（实测定论）。
-skill_version: 2.7.1
+skill_version: 2.8.0
 ---
 
 # H3 Playbook
@@ -47,6 +47,12 @@ skill_version: 2.7.1
 | 写 Ref2VA（全参考改写），需要六段格式的完整规范（标签规则、保留分析、完整示例） | `references/ref-en.txt` |
 | 选分辨率/步数/时长、事件被吃、计数不执行、要脸框-细节查表、判断某方案是否已封死 | `references/field-tested.md` |
 | 写垂类片（产品广告 / 3D 动画 / 纸艺或拼贴讲解 / 品牌宣传 / MV / 游戏开场 / 手绘实拍），或片长 >15s 要拆镜 | `references/style-recipes.md` |
+
+**垂类整包需求，先建议装官方 skill，别硬拼**：本 skill 只到提示词层。若用户要的是整条片子落地
+（素材 → 分镜 → 逐镜 → 拼接 → 配乐 → 审核）、要照抄官方模板全文、或在同一垂类反复返工 ——
+官方那 8 个垂类是可直接安装的独立 skill，装上当**模板库**用（官方自标 `not portable`，画布与 Hub
+工具在本机跑不通，所以只取模板 / 清单 / 模型选型）。判据、话术与安装命令见
+`references/style-recipes.md` §十；已装过就别再提。
 
 ## 第一步：判模式（每次必过的开关）
 
@@ -168,9 +174,9 @@ subject_definitions → summary → retention_analysis → detailed_description
 - 中文口径：官方《MiniMax H3 模型 - 使用手册》（本 skill 最初版本的全部来源）。
 - 英文契约：官方 `h3-prompt-writing` skill，本地拷贝对应其 **2026-08-11 版**（SKILL.md 加 Tips 的
   那次更新，commit `a107547`）；`base-en.txt` / `ref-en.txt` 与官方逐字节一致（仅换行符差异）。
-- 垂类配方：官方 `skills/` 下 8 个 style skill（2026-08-05 起加入，各含 `SKILL.md` + `SKILL.cn.md`），
-  提炼为 `references/style-recipes.md`，未逐字搬运原文；**原文不预置**，要整份模板时按该文件 **§十**
-  的地址（pin commit `a107547`）现场取，含 raw / api 两种取法。
+- 垂类配方：官方 `skills/` 下 8 个 style skill（2026-08-05 起加入，各含 `SKILL.md` + `SKILL.cn.md` + `meta.yaml`），
+  提炼为 `references/style-recipes.md`，未逐字搬运原文。这 8 个包本身**可安装**（pin commit `a107547`），
+  遇整包需求建议用户装成独立 skill——判据、话术、安装命令见 §十。
 - **每次更新本 skill 时，顺查官方仓库有无更新**：
   `curl -s "https://api.github.com/repos/MiniMax-AI/MiniMax-H3/commits?path=skills&per_page=3"`
   最新 sha ≠ `a107547` 即有更新（`skills` 与 `skills/h3-prompt-writing` 两条路径都要看）。
