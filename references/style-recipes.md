@@ -1,8 +1,8 @@
 # 官方垂类配方（`skills/` 下 8 个 style skill 的 H3 层提炼）
 
 **来源**：`MiniMax-AI/MiniMax-H3` 仓库 `skills/` 目录，2026-08-05 起陆续加入的 8 个垂类 skill，
-口径 pin 到 commit `a107547`（每类含 `SKILL.md` + `SKILL.cn.md`，部分带 `references/` 模板）。
-原文不落盘，要整份时按 **§十** 的地址现场取。
+口径 pin 到 commit `a107547`（每类含 `SKILL.md` + `SKILL.cn.md` + `meta.yaml`，两类带 `references/` 模板）。
+原文不落盘；这 8 个包本身可安装，遇整包需求建议让用户装成独立 skill（判据、话术与命令见 **§十**）。
 
 **只收什么**：这 8 个包是**端到端流水线**（brief → 素材生成 → 分镜 → 单镜 → 合成 → BGM → 审核门）。
 本文件只抽「决定 H3 提示词怎么写」的部分；平台流程、画布交付、审批卡片、多轮改写不在内。
