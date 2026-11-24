@@ -1,12 +1,12 @@
 ---
 name: h3-playbook
-description: MiniMax H3 视频生成的单一入口 skill（官方《使用手册》口径 + 官方 h3-prompt-writing 写作契约合并版）—— 三段式提示词公式、五类生成模式（T2VA / I2VA / FL2VA / L2VA / Ref2VA）的模式判定与写法差异、Ref2VA 六段改写格式、参考素材用途标签、能力边界（时长 / 分辨率 / 宽高比 / 输入上限 / 语言）、踩坑表。Use when 写或改写 H3 提示词、判断某个需求 H3 能不能做、选宽高比或时长、指定参考素材用途、需要 T2VA/I2VA/FL2VA/L2VA 的字段级结构或 Ref2VA 六段格式、排查口型不同步或切镜错乱、选分辨率/步数/时长、事件被吃或动作计数不执行、判断某条路线还能不能试（实测定论）。
-skill_version: 2.6.0
+description: MiniMax H3 视频生成的单一入口 skill（官方《使用手册》口径 + 官方 h3-prompt-writing 写作契约合并版）—— 三段式提示词公式、五类生成模式（T2VA / I2VA / FL2VA / L2VA / Ref2VA）的模式判定与写法差异、Ref2VA 六段改写格式、参考素材用途标签、能力边界（时长 / 分辨率 / 宽高比 / 输入上限 / 语言）、踩坑表、垂类配方（产品广告 / 3D 动画 / 纸艺或拼贴讲解 / 品牌宣传 / MV 排版 / 游戏开场 / 手绘实拍）、片长 >15s 的拆镜拼接。Use when 写或改写 H3 提示词、判断某个需求 H3 能不能做、选宽高比或时长、指定参考素材用途、需要 T2VA/I2VA/FL2VA/L2VA 的字段级结构或 Ref2VA 六段格式、排查口型不同步或切镜错乱、选分辨率/步数/时长、事件被吃或动作计数不执行、判断某条路线还能不能试（实测定论）。
+skill_version: 2.7.0
 ---
 
 # H3 Playbook
 
-本 skill 由两份官方材料**合并**而成，是 H3 提示词写作的唯一入口：
+本 skill 由官方三份材料 + 实测结论**合并**而成，是 H3 提示词写作的唯一入口：
 
 1. MiniMax 官方《MiniMax H3 模型 - 使用手册》——能力边界、三段式公式、素材标签、踩坑表。
 2. MiniMax 官方 skill `h3-prompt-writing`（`MiniMax-AI/MiniMax-H3` 仓库 `skills/h3-prompt-writing`，
@@ -16,6 +16,8 @@ skill_version: 2.6.0
 3. C 的实测定论（2026-09-28~30，E1~E25 系列，原档《定论.md》）——模型行为层：
    分辨率安全点、steps/duration 正交、脸框-细节阶梯、事件丢失规律与契约版配方、链式首尾帧、
    景别不对称律、参考图尺寸定律、已封死方案。汇总在 `references/field-tested.md`。
+4. MiniMax 官方 `skills/` 下 8 个垂类 style skill（2026-08-05 起加入）——**只取** H3 提示词层：结构与风格分层、参考图窄职责、分镜表列规范、>15s 拼接锁、画面文字与音频策略，
+   汇总在 `references/style-recipes.md`。
 
 **功能边界**：只讲 H3 本身——提示词结构、生成模式、素材用途、能力边界、踩坑。
 风格与语言按本次任务的实际要求走。
@@ -44,6 +46,7 @@ skill_version: 2.6.0
 | 写 T2VA / I2VA / FL2VA / L2VA，需要**字段级**最终结构（对齐指令原文、三核心字段、时序记法） | `references/base-en.txt` |
 | 写 Ref2VA（全参考改写），需要六段格式的完整规范（标签规则、保留分析、完整示例） | `references/ref-en.txt` |
 | 选分辨率/步数/时长、事件被吃、计数不执行、要脸框-细节查表、判断某方案是否已封死 | `references/field-tested.md` |
+| 写垂类片（产品广告 / 3D 动画 / 纸艺或拼贴讲解 / 品牌宣传 / MV / 游戏开场 / 手绘实拍），或片长 >15s 要拆镜 | `references/style-recipes.md` |
 
 ## 第一步：判模式（每次必过的开关）
 
@@ -94,13 +97,15 @@ skill_version: 2.6.0
 实测：英文契约口径的 `<Picture i>` 在 Ref2VA 上**有效**——用它指定首帧/尾帧并锁特征清单，
 尾帧可以近乎复刻参考图构图；物体参考只锁「写出的特征清单」（折法视角/比例没写就自由发挥）。
 
-## 硬规则（合并两份官方材料）
+## 硬规则（合并官方三源 + 实测）
 
 1. **台词长度必须和 shot 长度对齐。** 口型问题 90% 出在这里——别在 3 秒的 shot 里塞一大段话。
    跨 shot 的台词 H3 支持 J-cut / L-cut，但要**明确写出**这句台词跨了哪几个 shot。
 2. **要出现在画面里的文字/Logo/标题/按钮文案，必须把原文写出来。** 只说"加个标题"必翻车。
+   反过来，**不需要文字时要在负向段显式禁止**（`no readable letters, no UI, no watermark`），不写模型会自己加（见 `references/style-recipes.md` §五）。
 3. **少写比喻，多写看得见的画面。** H3 吃明确画面指令，不吃需要"意会"的抽象句。
    负面：「氛围要像一首忧伤的诗」；正面：「冷白侧前方柔光照亮人物面部，背景逆光，浅景深，竹林虚化成柔和散景」。
+4. **单条只到 15 秒。** 片长超过 15s 必须拆镜，并写进分镜表五条连续性锁——音频基线唯一 / 剪点落在气口与重拍 / 头尾帧接续 / 影调统一 / 文字动量传递（见 `references/style-recipes.md` §四）。
 
 ### Tips for Better Results（官方 2026-08-11 增补）
 
@@ -152,6 +157,7 @@ subject_definitions → summary → retention_analysis → detailed_description
 - [ ] 台词长度 ≤ shot 长度；跨 shot 台词有写明；说话人归属（角色 / 画外音）清楚
 - [ ] 画面文字写了原文
 - [ ] 描述覆盖的总时长 = 请求时长，落在 4–15 秒
+- [ ] 片长 >15s 已拆镜，五条连续性锁写进分镜表（不是简单切片）
 - [ ] 关键帧模式写明了帧怎样接入时间线
 - [ ] 标签口径全文统一（`@图片N` 或 `<Picture N>`，不混用）
 - [ ] 不要 BGM 时结尾写了 `非叙事性音乐：N/A` 或 `"non_diegetic_music": N/A`
@@ -162,6 +168,9 @@ subject_definitions → summary → retention_analysis → detailed_description
 - 中文口径：官方《MiniMax H3 模型 - 使用手册》（本 skill 最初版本的全部来源）。
 - 英文契约：官方 `h3-prompt-writing` skill，本地拷贝对应其 **2026-08-11 版**（SKILL.md 加 Tips 的
   那次更新，commit `a107547`）；`base-en.txt` / `ref-en.txt` 与官方逐字节一致（仅换行符差异）。
+- 垂类配方：官方 `skills/` 下 8 个 style skill（2026-08-05 起加入，各含 `SKILL.md` + `SKILL.cn.md`），
+  提炼为 `references/style-recipes.md`，未逐字搬运原文。
 - **每次更新本 skill 时，顺查官方仓库有无更新**：
-  `curl -s "https://api.github.com/repos/MiniMax-AI/MiniMax-H3/commits?path=skills/h3-prompt-writing&per_page=3"`
-  最新 sha ≠ `a107547` 即有更新。官方再更新时：diff 官方仓库对应文件后同步进本 skill，并升 `skill_version`。
+  `curl -s "https://api.github.com/repos/MiniMax-AI/MiniMax-H3/commits?path=skills&per_page=3"`
+  最新 sha ≠ `a107547` 即有更新（`skills` 与 `skills/h3-prompt-writing` 两条路径都要看）。
+  官方再更新时：diff 对应文件后同步，并升 `skill_version`。
