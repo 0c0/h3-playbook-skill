@@ -62,4 +62,4 @@ curl -s "https://api.github.com/repos/MiniMax-AI/MiniMax-H3/commits?path=skills&
 
 ## 版本
 
-`skill_version: 2.8.1`
+`skill_version: 2.8.2`
